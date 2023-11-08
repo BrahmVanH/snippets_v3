@@ -3,9 +3,8 @@ import { MotionPathPlugin, DrawSVGPlugin } from 'gsap/all';
 
 function Unroll() {
   gsap.registerPlugin(MotionPathPlugin, DrawSVGPlugin);
-	const dur = 1.25;
-	const mainEase = 'sine.inOut';
-	const master = gsap.timeline({ repeat: -1, yoyo: true, repeatDelay: 1 });
+	const mainTimeline = gsap.timeline({ repeat: -1, yoyo: true, repeatDelay: 1 });
+  
 	const svgns = 'http://www.w3.org/2000/svg';
 	const demo = document.querySelector('svg');
 	const strokeWidth = 4;
@@ -25,7 +24,7 @@ function Unroll() {
 		});
 
 		let tl = gsap.timeline({
-			defaults: { duration: dur, ease: mainEase },
+			defaults: { duration: 1.25, ease: 'sine.inOut' },
 		});
 		tl.set(lineTarget, {
 			attr: { x1: xPos, x2: xPos, y1: yPos, y2: yPos },
@@ -38,7 +37,7 @@ function Unroll() {
 	}
 
 	paths.forEach((obj, i) => {
-		master.add(unrollTarget(obj));
+		mainTimeline.add(unrollTarget(obj));
 	});
 
 	return (
