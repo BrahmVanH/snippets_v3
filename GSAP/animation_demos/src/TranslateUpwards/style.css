@@ -1,0 +1,31 @@
+.container {
+	display: grid;
+	grid-template-columns: [line1] 1fr [line2] 1fr [line3] 3fr [line4] 1fr [line5] 1fr [line6];
+	grid-template-rows: 1fr 2fr 1fr;
+	grid-template-areas:
+		'. . . . . '
+		'. . card . . '
+		'. . button . . ';
+}
+
+#box {
+	grid-area: card;
+	transform-origin: center; /* Set the origin to the right side */
+	background-color: #007bff;
+	color: white;
+	text-align: center;
+	font-size: 24px;
+	clip-path: polygon(
+		10% 50%,
+		0% 0%,
+		100% 0%,
+		90% 50%,
+		100% 100%,
+		0% 100%
+	);
+  border-radius: 60px;
+}
+
+button {
+	grid-area: button;
+}

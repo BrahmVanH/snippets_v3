@@ -1,0 +1,19 @@
+body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: black;
+}
+
+svg {
+  width: 80vw;
+  height: auto;
+  overflow: visible;
+}
+
+.roll {
+  grid-area: roll;
+}
