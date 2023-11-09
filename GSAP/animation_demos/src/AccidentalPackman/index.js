@@ -1,9 +1,7 @@
 import gsap from 'gsap';
 import { MotionPathPlugin, DrawSVGPlugin } from 'gsap/all';
-import { useLayoutEffect, useRef } from 'react';
 
-function Unroll() {
-	// const main = useRef();
+function AccidentalPackman() {
 	// Register gsap plugins to be used
 	gsap.registerPlugin(MotionPathPlugin, DrawSVGPlugin);
 
@@ -15,7 +13,6 @@ function Unroll() {
 
 	// Store element in variable
 	const demo = document.querySelector('svg');
-	const svgRef = useRef();
 
 	// style variables
 	const strokeWidth = 4;
@@ -32,9 +29,6 @@ function Unroll() {
 		// assign start postition to variables
 		let xPos = start[0];
 		let yPos = start[1];
-    let xPos2 = start[0] - 20;
-    let yPos2 = start[1] - 20;
-    console.log(xPos2);
 
 		// Save length of target to variable to direct SVG drawing later
 		let length = DrawSVGPlugin.getLength(target);
@@ -51,8 +45,6 @@ function Unroll() {
 			strokeWidth: strokeWidth,
 		});
 
-    
-
 		// Create timeline and define duration and ease pattern
 		let tl = gsap.timeline({
 			defaults: { duration: 1.25, ease: 'sine.inOut' },
@@ -62,32 +54,26 @@ function Unroll() {
 			attr: { x1: xPos, x2: xPos, y1: yPos, y2: yPos },
 		});
 		//  Add .to tween to end of timeline, targets svg element. Draws svg to length of the array of svg points
-		tl.to(target, { drawSVG: 0, x: length }, 0);
+		tl.to(target, { drawSVG: 400, x: length }, 0);
 
 		// Add .to tween to end of timeline, targets namespace element.
 		tl.to(targetNS, { attr: { x2: '+=' + length } }, 0);
 
-
 		return tl;
 	}
 
-	useLayoutEffect(() => {
-		let ctx = gsap.context(() => {
-			paths.forEach((obj, i) => {
-				console.log(obj);
-				mainTimeline.add(unrollTarget(obj));
-
-			});
-		});
-	}, []);
+	paths.forEach((obj, i) => {
+		console.log(obj);
+		mainTimeline.add(unrollTarget(obj));
+	});
 
 	return (
 		<>
-			<svg ref={svgRef} className='roll' xmlns='http://www.w3.org/2000/svg' width='400' height='120' viewBox='0 0 420 120'>
+			<svg className='roll' xmlns='http://www.w3.org/2000/svg' width='400' height='120' viewBox='0 0 420 120'>
 				<path d='M60,110A50,50,0,1,0,10,60,50,50,0,0,0,60,110Z' fill='none' stroke='#fff' strokeMiterlimit='10' strokeWidth='4' />
 			</svg>
 		</>
 	);
 }
 
-export default Unroll;
+export default AccidentalPackman;
