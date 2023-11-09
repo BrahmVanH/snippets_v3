@@ -32,9 +32,6 @@ function Unroll() {
 		// assign start postition to variables
 		let xPos = start[0];
 		let yPos = start[1];
-    let xPos2 = start[0] - 20;
-    let yPos2 = start[1] - 20;
-    console.log(xPos2);
 
 		// Save length of target to variable to direct SVG drawing later
 		let length = DrawSVGPlugin.getLength(target);
@@ -51,8 +48,6 @@ function Unroll() {
 			strokeWidth: strokeWidth,
 		});
 
-    
-
 		// Create timeline and define duration and ease pattern
 		let tl = gsap.timeline({
 			defaults: { duration: 1.25, ease: 'sine.inOut' },
@@ -66,7 +61,6 @@ function Unroll() {
 
 		// Add .to tween to end of timeline, targets namespace element.
 		tl.to(targetNS, { attr: { x2: '+=' + length } }, 0);
-
 
 		return tl;
 	}
