@@ -3,12 +3,15 @@ import './App.css';
 import TranslateUpwards from './TranslateUpwards';
 import Unroll from './Unroll';
 import BouncingBall from './BouncingBall';
+import BouncingSvg from './BouncingSvg';
 
 function App() {
   return (
-		<div className='App'>
+		<div className='App' 
+		style={{backgroundColor: "black", width: "100vw", height: '100vh'}}
+		>
 			<div>
-				<BouncingBall />
+				<BouncingSvg />
 			</div>
 		</div>
 	);

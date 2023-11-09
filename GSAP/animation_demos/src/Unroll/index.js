@@ -2,8 +2,10 @@ import gsap from 'gsap';
 import { MotionPathPlugin, DrawSVGPlugin } from 'gsap/all';
 import { useLayoutEffect, useRef } from 'react';
 
+import "./style.css";
+
 function Unroll() {
-	// const main = useRef();
+	const main = useRef();
 	// Register gsap plugins to be used
 	gsap.registerPlugin(MotionPathPlugin, DrawSVGPlugin);
 
@@ -56,6 +58,9 @@ function Unroll() {
 		tl.set(targetNS, {
 			attr: { x1: xPos, x2: xPos, y1: yPos, y2: yPos },
 		});
+
+		
+		
 		//  Add .to tween to end of timeline, targets svg element. Draws svg to length of the array of svg points
 		tl.to(target, { drawSVG: 0, x: length }, 0);
 
@@ -72,15 +77,16 @@ function Unroll() {
 				mainTimeline.add(unrollTarget(obj));
 
 			});
-		});
+		}, main);
+		return () => ctx.revert();
 	}, []);
 
 	return (
-		<>
+		<div ref={main}>
 			<svg ref={svgRef} className='roll' xmlns='http://www.w3.org/2000/svg' width='400' height='120' viewBox='0 0 420 120'>
 				<path d='M60,110A50,50,0,1,0,10,60,50,50,0,0,0,60,110Z' fill='none' stroke='#fff' strokeMiterlimit='10' strokeWidth='4' />
 			</svg>
-		</>
+		</div>
 	);
 }
 
