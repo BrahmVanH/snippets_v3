@@ -7,12 +7,9 @@ import BouncingSvg from './BouncingSvg';
 
 function App() {
   return (
-		<div className='App' 
-		style={{backgroundColor: "black", width: "100vw", height: '100vh'}}
-		>
-			<div>
+		<div className='App' style={{ backgroundColor: 'black', width: '100vw', height: '100vh' }}>
+			
 				<BouncingSvg />
-			</div>
 		</div>
 	);
 }

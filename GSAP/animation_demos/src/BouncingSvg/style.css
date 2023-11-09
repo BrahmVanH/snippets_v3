@@ -4,22 +4,28 @@
   box-sizing: border-box;
 }
 
-body {
+/* body {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   height: 100vh;
   background-color: #ffc30f;
+} */
+
+.svg-container {
+  grid-area: roll;
+
 }
 
-.ball {
-  width: 60px;
+#svg {
   height: 60px;
+  width: 60px;
   border-radius: 50%;
   background-color: #c70039;
   background: linear-gradient(to bottom, rgba(199,0,56,1) 0%, rgba(144,12,63,1) 100%);
-  transform: translateY(-90px);
+  transform: translateY(-150px);
+  /* transform: translateX(500px); */
   z-index: 1000;
 }
 
