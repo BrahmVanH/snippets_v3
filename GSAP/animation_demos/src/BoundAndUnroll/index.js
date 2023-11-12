@@ -70,7 +70,7 @@ function BounceAndUnroll() {
 
 	useLayoutEffect(() => {
 		let ctx = gsap.context(() => {
-			var tl = gsap.timeline({ repeat: -1, yoyo: false });
+			var tl = gsap.timeline({ repeat: -1, yoyo: true });
 			console.log(tl);
 			// tl.set('#svg', { y: 600});
 			tl.to('#svg', {
@@ -100,9 +100,10 @@ function BounceAndUnroll() {
 				motionPath: [
 					{ x: 0, y: 100 },
 					{ x: 200, y: -400 },
+					// { x: 200, y: -400 },
 					{ x: 350, y: -200 },
 				],
-        ease: 'power1',
+				ease: 'power1',
 				duration: 2,
 			});
       paths.forEach((obj, i) => {
