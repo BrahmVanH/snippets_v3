@@ -5,6 +5,8 @@ import { useLayoutEffect, useRef } from 'react';
 import './style.css';
 
 const BounceReveal = () => {
+
+  console.log(window.innerWidth);
   gsap.registerPlugin(SplitText);
 
 	const customEase = CustomEase.create('custom', 'M0,0 C0.15,0.366 0.314,0.57 0.5,0.671 0.659,0.757 0.834,0.807 1,1 ');
