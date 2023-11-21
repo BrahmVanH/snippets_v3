@@ -1,14 +1,14 @@
-/* .App {
+.App {
 	text-align: center;
 	display: grid;
 	grid-template-columns: [line1] 1fr [line2] 1fr [line3] 3fr [line4] 1fr [line5] 1fr [line6];
 	grid-template-rows: 1fr 2fr 1fr;
 	grid-template-areas:
 		'. . . . . '
-		'. . . . . '
-		'. . roll . . ';
+		'. welcome . . . '
+		'. roll . . . ';
 
-} */
+}
 
 
 .App-logo {

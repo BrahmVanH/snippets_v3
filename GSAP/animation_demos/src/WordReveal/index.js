@@ -4,8 +4,8 @@ import { SplitText } from 'gsap/all';
 
 import './style.css';
 const WordReveal = () => {
+  const main = useRef();
 	gsap.registerPlugin(SplitText);
-	const main = useRef();
 	const welcome = useRef();
 
 	const split = new SplitText(welcome.current, { type: 'chars' });

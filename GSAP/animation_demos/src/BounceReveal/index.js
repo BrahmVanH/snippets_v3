@@ -1,12 +1,19 @@
 import gsap from 'gsap';
-import { MotionPathPlugin, DrawSVGPlugin, CustomEase } from 'gsap/all';
+import { MotionPathPlugin, DrawSVGPlugin, CustomEase, SplitText } from 'gsap/all';
 import { useLayoutEffect, useRef } from 'react';
 
 import './style.css';
 
-function BounceAndUnroll() {
+const BounceReveal = () => {
+  gsap.registerPlugin(SplitText);
+
 	const customEase = CustomEase.create('custom', 'M0,0 C0.15,0.366 0.314,0.57 0.5,0.671 0.659,0.757 0.834,0.807 1,1 ');
 	const main = useRef();
+	const welcome = useRef();
+
+	const split = new SplitText('#welcome', { type: 'chars' });
+	const chars = split.chars;
+
 	// Register gsap plugins to be used
 	gsap.registerPlugin(MotionPathPlugin, DrawSVGPlugin);
 
@@ -26,7 +33,7 @@ function BounceAndUnroll() {
 	// Spread path points into an array of points to later manipulate
 	let paths = gsap.utils.toArray('path');
 
-	function unrollTarget(target) {
+	const unrollTarget = (target) => {
 		// Grab the path, an array of arrays of coordinate values, from the target - in this case, the svg line
 		// and assign the first array to the 'start' variable
 		let start = MotionPathPlugin.getRawPath(target)[0];
@@ -66,11 +73,18 @@ function BounceAndUnroll() {
 		tl.to(targetNS, { attr: { x2: '+=' + length } }, 0);
 
 		return tl;
-	}
+	};
+
+	const welcomeTl = () => {
+		let tl = gsap.timeline();
+		tl.from(chars, { delay: 1.7, duration: 1.8, opacity: 0, stagger: 0.05, ease: 'power2.in' });
+    return tl;
+	};
 
 	useLayoutEffect(() => {
 		let ctx = gsap.context(() => {
-			const mainTimeline = gsap.timeline({ repeat: -1, yoyo: true, repeatDelay: 1 });
+			const mainTimeline = gsap.timeline();
+      mainTimeline.add(welcomeTl);
 
 			let tl = gsap.timeline({ ease: customEase });
 			console.log(tl);
@@ -119,7 +133,10 @@ function BounceAndUnroll() {
 	}, []);
 
 	return (
-		<div className='svg-container' ref={main}>
+		<div className='content-container' ref={main}>
+			<h1 id='welcome' ref={welcome} style={{ gridArea: 'welcome', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+				Welcome
+			</h1>
 			<svg id='svg' ref={svgRef} className='roll' xmlns='http://www.w3.org/2000/svg' width='400' height='120' viewBox='0 0 420 120'>
 				<path d='M60,110A50,50,0,1,0,10,60,50,50,0,0,0,60,110Z' fill='none' stroke='#fff' strokeMiterlimit='10' strokeWidth='4' />
 			</svg>
@@ -127,4 +144,4 @@ function BounceAndUnroll() {
 	);
 }
 
-export default BounceAndUnroll;
+export default BounceReveal;

@@ -1,0 +1,41 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+} 
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  
+  
+}
+
+#welcome {
+  grid-area: welcome;
+  transform: translateX(355px) translateY(-90px);
+}
+
+.content-container {
+  grid-area: roll;
+  transform: translateY(-150px);
+
+
+}
+
+#svg {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  transform: translateY(-150px);
+  z-index: 1000;
+}
+
+svg {
+  width: 80vw;
+  height: auto;
+  overflow: visible;
+}

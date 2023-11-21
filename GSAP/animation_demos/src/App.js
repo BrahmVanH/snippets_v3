@@ -7,12 +7,13 @@ import BouncingSvg from './BouncingSvg';
 import BounceAndUnroll from './BoundAndUnroll';
 import ScrollStretch from './ScrollStretch';
 import WordReveal from './WordReveal';
+import BounceReveal from './BounceReveal';
 
 function App() {
 	return (
 		<div className='App' 
 		style={{ backgroundColor: 'black', width: '100%', height: '100%' }}>
-			<WordReveal />
+			<BounceReveal />
 			{/* <div style={{ backgroundColor: 'black', color: 'white' }}>Blue</div> */}
 		</div>
 	);
