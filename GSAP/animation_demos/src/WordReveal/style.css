@@ -1,0 +1,6 @@
+.word-reveal-container {
+	grid-template-areas:
+		'. . . .'
+		'. welcome welcome .'
+		'. . . .';
+}

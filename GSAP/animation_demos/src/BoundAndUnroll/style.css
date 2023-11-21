@@ -1,4 +1,4 @@
-* {
+/* * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -11,7 +11,7 @@ body {
   flex-direction: column;
   height: 100vh;
   
-  /* background-color: #ffc30f; */
+  
 }
 
 .svg-container {
@@ -26,7 +26,6 @@ body {
   width: 200px;
   border-radius: 50%;
   transform: translateY(-150px);
-  /* transform: translateX(500px); */
   z-index: 1000;
 }
 
@@ -34,4 +33,4 @@ svg {
   width: 80vw;
   height: auto;
   overflow: visible;
-}
+} */
