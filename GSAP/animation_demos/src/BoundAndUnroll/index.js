@@ -1,16 +1,18 @@
 import gsap from 'gsap';
-import { MotionPathPlugin, DrawSVGPlugin } from 'gsap/all';
+import { MotionPathPlugin, DrawSVGPlugin, CustomEase } from 'gsap/all';
 import { useLayoutEffect, useRef } from 'react';
 
 import './style.css';
 
 function BounceAndUnroll() {
+	const gravity = 100;
+	const easePoints = [0, 0, 0, 0.5, 1 - 0.5 / gravity, 1, 1];
+	const customEase = CustomEase.create('custom', 'M0,0 C0.15,0.366 0.314,0.57 0.5,0.671 0.659,0.757 0.834,0.807 1,1 ');
 	const main = useRef();
 	// Register gsap plugins to be used
 	gsap.registerPlugin(MotionPathPlugin, DrawSVGPlugin);
 
 	// Create main timeline for the component
-	const mainTimeline = gsap.timeline({ repeat: -1, yoyo: true, repeatDelay: 1 });
 
 	// Create a namespace for the svg to allow browsers to handle svg properly
 	const svgns = 'http://www.w3.org/2000/svg';
@@ -70,9 +72,11 @@ function BounceAndUnroll() {
 
 	useLayoutEffect(() => {
 		let ctx = gsap.context(() => {
-			var tl = gsap.timeline({ repeat: -1, yoyo: true });
+			const mainTimeline = gsap.timeline({ repeat: -1, yoyo: true, repeatDelay: 1 });
+
+			let tl = gsap.timeline({ ease: customEase });
 			console.log(tl);
-			// tl.set('#svg', { y: 600});
+			tl.set('#svg', { y: -600 });
 			tl.to('#svg', {
 				y: 100,
 				x: 0,
@@ -85,6 +89,7 @@ function BounceAndUnroll() {
 				{
 					duration: 0.1,
 					scaleY: 0.6,
+					scaleX: 1.1,
 					transformOrigin: 'center bottom',
 					borderBottomLeftRadius: '40%',
 					borderBottomRightRadius: '40%',
@@ -99,22 +104,21 @@ function BounceAndUnroll() {
 			tl.to('#svg', {
 				motionPath: [
 					{ x: 0, y: 100 },
-					{ x: 200, y: -400 },
-					// { x: 200, y: -400 },
+					{ x: 200, y: -300 },
 					{ x: 350, y: -200 },
 				],
-				ease: 'power1',
-				duration: 2,
+				duration: 1.5,
+				ease: customEase,
 			});
-      paths.forEach((obj, i) => {
-				console.log(obj);
+			paths.forEach((obj, i) => {
 				tl.add(unrollTarget(obj));
 			});
+
+			mainTimeline.add(tl);
 		}, main);
 
 		return () => ctx.revert();
 	}, []);
-
 
 	return (
 		<div className='svg-container' ref={main}>

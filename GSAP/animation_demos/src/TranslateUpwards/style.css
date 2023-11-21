@@ -1,4 +1,4 @@
-.container {
+/* .container {
 	display: grid;
 	grid-template-columns: [line1] 1fr [line2] 1fr [line3] 3fr [line4] 1fr [line5] 1fr [line6];
 	grid-template-rows: 1fr 2fr 1fr;
@@ -10,7 +10,7 @@
 
 #box {
 	grid-area: card;
-	transform-origin: center; /* Set the origin to the right side */
+	transform-origin: center; 
 	background-color: #007bff;
 	color: white;
 	text-align: center;
@@ -28,4 +28,4 @@
 
 button {
 	grid-area: button;
-}
+} */

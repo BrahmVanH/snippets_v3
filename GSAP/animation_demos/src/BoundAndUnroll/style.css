@@ -2,16 +2,17 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-}
+} 
 
-/* body {
+body {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   height: 100vh;
-  background-color: #ffc30f;
-} */
+  
+  /* background-color: #ffc30f; */
+}
 
 .svg-container {
   grid-area: roll;

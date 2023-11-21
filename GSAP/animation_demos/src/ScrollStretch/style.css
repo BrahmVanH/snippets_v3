@@ -1,0 +1,24 @@
+/* .main {
+  background-color: black;
+  height: 100%;
+	display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+	grid-template-areas:
+		'. filler . '
+		'. . .'
+		'. box .'
+    '. . .';
+}
+
+.scrollstretch-box {
+	grid-area: box;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+}
+
+.filler {
+  background-color: black;
+  grid-area: filler;
+} */
