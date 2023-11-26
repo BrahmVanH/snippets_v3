@@ -17,6 +17,10 @@ body {
 #welcome {
   grid-area: welcome;
   transform: translateX(355px) translateY(-90px);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content-container {

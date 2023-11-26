@@ -1,13 +1,11 @@
 import gsap from 'gsap';
 import { MotionPathPlugin, DrawSVGPlugin, CustomEase, SplitText } from 'gsap/all';
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useEffect } from 'react';
 
 import './style.css';
 
 const BounceReveal = () => {
-
-  console.log(window.innerWidth);
-  gsap.registerPlugin(SplitText);
+	gsap.registerPlugin(SplitText);
 
 	const customEase = CustomEase.create('custom', 'M0,0 C0.15,0.366 0.314,0.57 0.5,0.671 0.659,0.757 0.834,0.807 1,1 ');
 	const main = useRef();
@@ -80,13 +78,13 @@ const BounceReveal = () => {
 	const welcomeTl = () => {
 		let tl = gsap.timeline();
 		tl.from(chars, { delay: 1.7, duration: 1.8, opacity: 0, stagger: 0.05, ease: 'power2.in' });
-    return tl;
+		return tl;
 	};
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		let ctx = gsap.context(() => {
 			const mainTimeline = gsap.timeline();
-      mainTimeline.add(welcomeTl);
+			mainTimeline.add(welcomeTl);
 
 			let tl = gsap.timeline({ ease: customEase });
 			console.log(tl);
@@ -144,6 +142,6 @@ const BounceReveal = () => {
 			</svg>
 		</div>
 	);
-}
+};
 
 export default BounceReveal;

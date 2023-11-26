@@ -8,13 +8,18 @@ import BounceAndUnroll from './BoundAndUnroll';
 import ScrollStretch from './ScrollStretch';
 import WordReveal from './WordReveal';
 import BounceReveal from './BounceReveal';
+import SideToDownScroll from './SideToDownScroll';
+import WigglyLoader from './WigglyLoader';
 
 function App() {
+	const bounceRevealAppStyle = {
+		backgroundColor: 'black',
+		width: '100%',
+		height: '100%',
+	};
 	return (
-		<div className='App' 
-		style={{ backgroundColor: 'black', width: '100%', height: '100%' }}>
-			<BounceReveal />
-			{/* <div style={{ backgroundColor: 'black', color: 'white' }}>Blue</div> */}
+		<div className='App' style={bounceRevealAppStyle}>
+			<WigglyLoader />
 		</div>
 	);
 }
