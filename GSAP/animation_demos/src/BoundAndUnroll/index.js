@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import { MotionPathPlugin, DrawSVGPlugin, CustomEase } from 'gsap/all';
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useEffect } from 'react';
 
 import './style.css';
 
@@ -18,6 +18,7 @@ function BounceAndUnroll() {
 	// Store element in variable
 	const demo = document.querySelector('svg');
 	const svgRef = useRef();
+	
 
 	// style variables
 	const strokeWidth = 4;
@@ -68,9 +69,9 @@ function BounceAndUnroll() {
 		return tl;
 	}
 
-	useLayoutEffect(() => {
-		let ctx = gsap.context(() => {
-			const mainTimeline = gsap.timeline({ repeat: -1, yoyo: true, repeatDelay: 1 });
+	useEffect(() => {
+		const ctx = gsap.context(() => {
+			let mainTimeline = gsap.timeline({ repeat: -1, yoyo: true, repeatDelay: 1 });
 
 			let tl = gsap.timeline({ ease: customEase });
 			console.log(tl);

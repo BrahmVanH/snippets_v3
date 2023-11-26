@@ -1,37 +1,38 @@
 import gsap from 'gsap';
 import { MotionPathPlugin, DrawSVGPlugin, CustomEase, SplitText } from 'gsap/all';
-import { useLayoutEffect, useRef, useEffect } from 'react';
+import { useLayoutEffect, useRef, useEffect, useState } from 'react';
 
 import './style.css';
 
 const BounceReveal = () => {
 	gsap.registerPlugin(SplitText);
 
+	let paths;
+	let demo;
+
 	const customEase = CustomEase.create('custom', 'M0,0 C0.15,0.366 0.314,0.57 0.5,0.671 0.659,0.757 0.834,0.807 1,1 ');
 	const main = useRef();
-	const welcome = useRef();
+	const mainTimeline = useRef(gsap.timeline());
 
-	const split = new SplitText('#welcome', { type: 'chars' });
-	const chars = split.chars;
+	// Find html elements after document is painted
+	useEffect(() => {
+		paths = gsap.utils.toArray('path');
+		demo = document.querySelector('svg');
+	}, []);
 
 	// Register gsap plugins to be used
 	gsap.registerPlugin(MotionPathPlugin, DrawSVGPlugin);
 
-	// Create main timeline for the component
 
 	// Create a namespace for the svg to allow browsers to handle svg properly
 	const svgns = 'http://www.w3.org/2000/svg';
 
-	// Store element in variable
-	const demo = document.querySelector('svg');
-	const svgRef = useRef();
 
 	// style variables
 	const strokeWidth = 4;
 	const strokeColor = '#5cceee';
 
 	// Spread path points into an array of points to later manipulate
-	let paths = gsap.utils.toArray('path');
 
 	const unrollTarget = (target) => {
 		// Grab the path, an array of arrays of coordinate values, from the target - in this case, the svg line
@@ -61,6 +62,7 @@ const BounceReveal = () => {
 		let tl = gsap.timeline({
 			defaults: { duration: 0.5, ease: 'none' },
 		});
+
 		// set namespace starting location
 		tl.set(targetNS, {
 			attr: { x1: xPos, x2: xPos, y1: yPos, y2: yPos },
@@ -76,68 +78,73 @@ const BounceReveal = () => {
 	};
 
 	const welcomeTl = () => {
+		let split = new SplitText('#welcome', { type: 'chars' });
+		let chars = split.chars;
 		let tl = gsap.timeline();
-		tl.from(chars, { delay: 1.7, duration: 1.8, opacity: 0, stagger: 0.05, ease: 'power2.in' });
+		tl.from(chars, { lazy: false, delay: 1.7, duration: 1.8, opacity: 0, stagger: 0.05, ease: 'power2.in' });
 		return tl;
 	};
 
-	useEffect(() => {
-		let ctx = gsap.context(() => {
-			const mainTimeline = gsap.timeline();
-			mainTimeline.add(welcomeTl);
+	useLayoutEffect(() => {
+		if (paths && demo) {
+			let ctx = gsap.context(() => {
+				mainTimeline.current.add(welcomeTl);
+				let tl = gsap.timeline({ ease: customEase });
 
-			let tl = gsap.timeline({ ease: customEase });
-			console.log(tl);
-			tl.set('#svg', { y: -600 });
-			tl.to('#svg', {
-				y: 100,
-				x: 0,
-				ease: 'none',
-				duration: 0.5,
-			});
-			tl.to(
-				'#svg',
-
-				{
-					duration: 0.1,
-					scaleY: 0.6,
-					scaleX: 1.1,
-					transformOrigin: 'center bottom',
-					borderBottomLeftRadius: '40%',
-					borderBottomRightRadius: '40%',
+				console.log(tl);
+				tl.set('#svg', { y: -600 });
+				tl.to('#svg', {
+					y: 100,
+					x: 0,
 					ease: 'none',
-				},
-				'-=.05'
-			);
-			tl.to('#svg', {
-				scaleY: 1,
-				duration: 0,
-			});
-			tl.to('#svg', {
-				motionPath: [
-					{ x: 0, y: 100 },
-					{ x: 200, y: -300 },
-					{ x: 350, y: -200 },
-				],
-				duration: 1.5,
-				ease: customEase,
-			});
-			paths.forEach((obj, i) => {
-				tl.add(unrollTarget(obj));
-			});
+					duration: 0.5,
+				});
+				tl.to(
+					'#svg',
 
-			mainTimeline.add(tl);
-		}, main);
+					{
+						duration: 0.1,
+						scaleY: 0.6,
+						scaleX: 1.1,
+						transformOrigin: 'center bottom',
+						borderBottomLeftRadius: '40%',
+						borderBottomRightRadius: '40%',
+						ease: 'none',
+					},
+					'-=.05'
+				);
+				tl.to('#svg', {
+					scaleY: 1,
+					duration: 0,
+				});
+				tl.to('#svg', {
+					motionPath: [
+						{ x: 0, y: 100 },
+						{ x: 200, y: -300 },
+						{ x: 350, y: -200 },
+					],
+					duration: 1.5,
+					ease: customEase,
+				});
+				paths.forEach((obj, i) => {
+					tl.add(unrollTarget(obj));
+				});
 
-		return () => ctx.revert();
+				mainTimeline.current.add(tl);
+			}, main);
+
+			return () => ctx.revert();
+		}
+	
+
 	}, []);
 
 	return (
 		<div className='content-container' ref={main}>
-			<h1 id='welcome' ref={welcome} style={{ gridArea: 'welcome', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+			<h1 id='welcome' style={{ gridArea: 'welcome', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 				Welcome
 			</h1>
-			<svg id='svg' ref={svgRef} className='roll' xmlns='http://www.w3.org/2000/svg' width='400' height='120' viewBox='0 0 420 120'>
+			<svg id='svg' className='roll' xmlns='http://www.w3.org/2000/svg' width='400' height='120' viewBox='0 0 420 120'>
 				<path d='M60,110A50,50,0,1,0,10,60,50,50,0,0,0,60,110Z' fill='none' stroke='#fff' strokeMiterlimit='10' strokeWidth='4' />
 			</svg>
 		</div>

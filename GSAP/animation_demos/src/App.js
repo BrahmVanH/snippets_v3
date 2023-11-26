@@ -19,7 +19,7 @@ function App() {
 	};
 	return (
 		<div className='App' style={bounceRevealAppStyle}>
-			<WigglyLoader />
+			<BounceReveal />
 		</div>
 	);
 }
